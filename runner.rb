@@ -7,6 +7,8 @@ puts "make a selection"
 puts "    [1] See all recipes"
 puts "    [2] See one recipe"
 puts "    [3] Create a new recipe"
+puts "    [4] Update a recipe"
+puts "    [5] Destroy a recipe"
 
 input_option = gets.chomp
 
@@ -43,6 +45,62 @@ elsif input_option == "3"
   recipe_data = response.body
 
   puts JSON.pretty_generate(recipe_data)
+elsif input_option == "4"
+  print "Enter recipe id: "
+  input_id = gets.chomp
+
+  response = Unirest.get("http://localhost:3000/recipes/#{input_id}")
+  recipe = response.body
+
+  client_params = {}
+
+  print "Title (#{recipe["title"]}): "
+  client_params[:title] = gets.chomp
+
+  print "Chef (#{recipe["chef"]}): "
+  client_params[:chef] = gets.chomp
+
+  print "Ingredients (#{recipe["ingredients"]}): "
+  client_params[:ingredients] = gets.chomp
+
+  print "Directions (#{recipe["directions"]}): "
+  client_params[:directions] = gets.chomp
+
+  client_params.delete_if { |key, value| value.empty? }
+  # p client_params
+  response = Unirest.patch(
+                          "http://localhost:3000/recipes/#{input_id}",
+                          parameters: client_params
+                          )
+  recipe_data = response.body
+
+  puts JSON.pretty_generate(recipe_data)
+elsif input_option == "5"
+  print "Enter recipe id: "
+  input_id = gets.chomp
+
+  response = Unirest.delete("http://localhost:3000/recipes/#{input_id}")
+  data = response.body
+  puts data["message"]
 end
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
