@@ -10,7 +10,7 @@ module RecipesViews
   def recipes_show_view(recipe)
     puts 
     puts recipe.title.upcase
-    puts "=" * recipe.title.length
+    puts "=" * 70
     puts "by: #{recipe.chef}".ljust(35) + "prep: #{recipe.prep_time}".rjust(35)
     puts
     puts "Ingredients"
@@ -25,5 +25,53 @@ module RecipesViews
       puts "    #{index + 1}. #{direction}"
     end
     puts
+  end
+
+  def recipes_id_form
+    print "Enter recipe id: "
+    gets.chomp
+  end
+
+  def recipes_new_form
+    client_params = {}
+
+    print "Title: "
+    client_params[:title] = gets.chomp
+
+    print "Chef: "
+    client_params[:chef] = gets.chomp
+
+    print "Ingredients: "
+    client_params[:ingredients] = gets.chomp
+
+    print "Directions: "
+    client_params[:directions] = gets.chomp
+
+    print "Prep Time: "
+    client_params[:prep_time] = gets.chomp
+
+    client_params
+  end
+
+  def recipes_update_form(recipe)
+    client_params = {}
+
+    print "Title (#{recipe.title}): "
+    client_params[:title] = gets.chomp
+
+    print "Chef (#{recipe.chef}): "
+    client_params[:chef] = gets.chomp
+
+    print "Ingredients (#{recipe.ingredients}): "
+    client_params[:ingredients] = gets.chomp
+
+    print "Directions (#{recipe.directions}): "
+    client_params[:directions] = gets.chomp
+
+    print "Prep Time (#{recipe.prep_time}): "
+    client_params[:prep_time] = gets.chomp
+
+    client_params.delete_if { |key, value| value.empty? }
+    client_params
   end
 end

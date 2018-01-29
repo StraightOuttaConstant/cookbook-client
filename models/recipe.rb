@@ -9,4 +9,14 @@ class Recipe
       @created_at = input_options["created_at"]
       @prep_time = input_options["prep_time"]
   end
+
+  def self.convert_hashs(recipe_hashs)
+    collection = []
+
+    recipe_hashs.each do |recipe_hash|
+      collection << Recipe.new(recipe_hash)
+    end
+
+    collection
+  end
 end

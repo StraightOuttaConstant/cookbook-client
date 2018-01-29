@@ -52,6 +52,22 @@ class Frontend
     elsif input_option == "5"
       recipes_destroy_action
     end
+  end
 
+private
+  def get_request(url, client_params={})
+    Unirest.get("http://localhost:3000#{url}", parameters: client_params).body
+  end
+
+  def post_request(url, client_params={})
+    Unirest.post("http://localhost:3000#{url}", parameters: client_params).body
+  end
+
+  def patch_request(url, client_params={})
+    Unirest.patch("http://localhost:3000#{url}", parameters: client_params).body
+  end
+
+  def delete_request(url, client_params={})
+    Unirest.delete("http://localhost:3000#{url}", parameters: client_params).body
   end
 end
