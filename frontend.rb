@@ -25,6 +25,7 @@ class Frontend
       puts ""
       puts "    [signup] Signup (create a user)"
       puts "    [login]  Login (create a JSON web token)"
+      puts "    [logout] Logout (erase the JSON web token)"
       puts "    [q] Quit"
 
       input_option = gets.chomp
@@ -96,6 +97,9 @@ class Frontend
         puts JSON.pretty_generate(response.body)
         jwt = response.body["jwt"]
         Unirest.default_header("Authorization", "Bearer #{jwt}")
+      elsif input_option == "logout"
+        jwt = ""
+        Unirest.clear_default_headers
       elsif input_option == "q"
         puts "Thank you for using Josh's Cookbook"
         exit
