@@ -1,5 +1,5 @@
 class Recipe
-  attr_accessor :id, :title, :chef, :ingredients, :directions, :created_at, :prep_time
+  attr_accessor :id, :title, :chef, :ingredients, :directions, :created_at, :prep_time, :formatted_ingredients, :formatted_directions, :formatted_prep_time
   def initialize(input_options)
       @id = input_options["id"]
       @title = input_options["title"]
@@ -8,6 +8,9 @@ class Recipe
       @directions = input_options["directions"]
       @created_at = input_options["created_at"]
       @prep_time = input_options["prep_time"]
+      @formatted_ingredients = input_options["formatted"]["ingredients"]
+      @formatted_directions = input_options["formatted"]["directions"]
+      @formatted_prep_time = input_options["formatted"]["prep_time"]
   end
 
   def self.convert_hashs(recipe_hashs)

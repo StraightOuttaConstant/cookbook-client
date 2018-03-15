@@ -11,17 +11,17 @@ module RecipesViews
     puts 
     puts recipe.title.upcase
     puts "=" * 70
-    puts "by: #{recipe.chef}".ljust(35) + "prep: #{recipe.prep_time}".rjust(35)
+    puts "by: #{recipe.chef}".ljust(35) + "prep: #{recipe.formatted_prep_time}".rjust(35)
     puts
     puts "Ingredients"
     puts "-" * 70
-    recipe.ingredients.each do |ingredient|
+    recipe.formatted_ingredients.each do |ingredient|
       puts "    • #{ingredient}"
     end
     puts
     puts "Directions"
     puts "-" * 70
-    recipe.directions.each_with_index do |direction, index|
+    recipe.formatted_directions.each_with_index do |direction, index|
       puts "    #{index + 1}. #{direction}"
     end
     puts
@@ -37,9 +37,6 @@ module RecipesViews
 
     print "Title: "
     client_params[:title] = gets.chomp
-
-    print "Chef: "
-    client_params[:chef] = gets.chomp
 
     print "Ingredients: "
     client_params[:ingredients] = gets.chomp
